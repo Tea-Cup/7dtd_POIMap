@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ModInfo>
+	<Name value="POIMap" />
+	<DisplayName value="POI Map" />
+	<Description value="Check POI name and skulls on the map." />
+	<Author value="FoxyTeacup" />
+	<Version value="1.0" />
+	<SkipWithAntiCheat value="true" />
+</ModInfo>
