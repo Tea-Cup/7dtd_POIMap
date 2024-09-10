@@ -19,4 +19,31 @@
       </grid>
     </panel>
   </append>
+
+  <conditional>
+    <if cond="mod_loaded('AGF-V1-HUDPlus-1Main')">
+      <remove xpath="/windows/window[@name='mapArea']/panel[@name='content']/panel[@name='mapView']/panel[@name='POIMap']" />
+
+      <append xpath="/windows/window[@name='mapArea']/panel[@name='content']/rect[@name='toolbar']">
+        <label depth="1" name="cursorPOI" pos="50,-306" justify="left" height="26" width="198" text="Trader Rekt" font_size="26" />
+        <grid depth="1" pos="50,-340" pivot="left" cols="8" cell_width="18" cell_height="16">
+          <sprite depth="6" name="skull1" width="16" height="16" sprite="ui_game_symbol_skull" />
+          <sprite depth="6" name="skull2" width="16" height="16" sprite="ui_game_symbol_skull" />
+          <sprite depth="6" name="skull3" width="16" height="16" sprite="ui_game_symbol_skull" />
+          <sprite depth="6" name="skull4" width="16" height="16" sprite="ui_game_symbol_skull" />
+          <sprite depth="6" name="skull5" width="16" height="16" sprite="ui_game_symbol_skull" />
+          <sprite depth="6" name="skull6" width="16" height="16" sprite="ui_game_symbol_skull" />
+          <sprite depth="6" name="skull7" width="16" height="16" sprite="ui_game_symbol_skull" />
+          <rect depth="6" width="16" height="16" name="skullHalf">
+            <sprite depth="7" name="skull12" width="16" height="16" sprite="ui_game_symbol_skull" type="filled" fill="0.5" color="255,128,0" />
+            <sprite depth="7" name="skull22" width="16" height="16" sprite="ui_game_symbol_skull" type="filled" fill="0.5" fillinvert="true" color="[lightGrey]" />
+          </rect>
+        </grid>
+      </append>
+
+      <setattribute xpath="/windows/window[@name='mapArea']/panel[@name='content']/rect[@name='toolbar']/label[@text_key='lblRemoveQuickWaypoint']" name="pos">6,-409</setattribute>
+      <setattribute xpath="/windows/window[@name='mapArea']/panel[@name='content']/rect[@name='toolbar']/button[@name='waypointIcon']" name="pos">25,-452</setattribute>
+      <setattribute xpath="/windows/window[@name='mapArea']/panel[@name='content']/rect[@name='toolbar']/label[@name='waypointDistance']" name="pos">50,-443</setattribute>
+    </if>
+  </conditional>
 </mine_just_mine>
