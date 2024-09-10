@@ -35,6 +35,39 @@ namespace POIMap {
 			if (prefabDiff + biomeDiff >= skullDiff) return biomeActiveColor;
 			return inactiveColor;
 		}
+		private static void SetValues(string name, int prefab, int biome, bool half) {
+			if(name == null) {
+				uiLblCursorPOI.IsVisible = false;
+				uiSkull1.IsVisible = false;
+				uiSkull2.IsVisible = false;
+				uiSkull3.IsVisible = false;
+				uiSkull4.IsVisible = false;
+				uiSkull5.IsVisible = false;
+				uiSkull6.IsVisible = false;
+				uiSkull7.IsVisible = false;
+				uiSkullHalf.IsVisible = false;
+				return;
+			}
+
+			int sumDiff = prefab + biome;
+			uiLblCursorPOI.Text = name;
+			uiLblCursorPOI.IsVisible = true;
+			uiSkull1.Color = GetSkullColor(prefab, biome, 1);
+			uiSkull2.Color = GetSkullColor(prefab, biome, 2);
+			uiSkull3.Color = GetSkullColor(prefab, biome, 3);
+			uiSkull4.Color = GetSkullColor(prefab, biome, 4);
+			uiSkull5.Color = GetSkullColor(prefab, biome, 5);
+			uiSkull6.Color = GetSkullColor(prefab, biome, 6);
+			uiSkull7.Color = GetSkullColor(prefab, biome, 7);
+			uiSkull1.IsVisible = sumDiff >= 1;
+			uiSkull2.IsVisible = sumDiff >= 2;
+			uiSkull3.IsVisible = sumDiff >= 3;
+			uiSkull4.IsVisible = sumDiff >= 4;
+			uiSkull5.IsVisible = sumDiff >= 5;
+			uiSkull6.IsVisible = sumDiff >= 6;
+			uiSkull7.IsVisible = sumDiff >= 7;
+			uiSkullHalf.IsVisible = half;
+		}
 
 		public static void MapAreaInit(XUiC_MapArea xui) {
 			uiLblCursorPOI = (XUiV_Label)xui.GetChildById("cursorPOI").ViewComponent;
@@ -48,7 +81,10 @@ namespace POIMap {
 			uiSkullHalf = (XUiV_Rect)xui.GetChildById("skullHalf").ViewComponent;
 		}
 		public static void MapAreaUpdate(XUiC_MapArea xui, bool bMouseOverMap, Vector3 pos) {
-			if (!bMouseOverMap) return;
+			if (!bMouseOverMap) {
+				SetValues(null, 0, 0, false);
+				return;
+			}
 			if (Vector3.Distance(pos, lastPos) < 0.5f) return;
 			lastPos = pos;
 			lastTimePrefabChecked = Time.time;
@@ -74,24 +110,7 @@ namespace POIMap {
 				biomeDiff = Mathf.FloorToInt(n);
 				showHalf = n - biomeDiff == 0.5f;
 			}
-			int sumDiff = prefabDiff + biomeDiff;
-
-			uiLblCursorPOI.Text = name;
-			uiSkull1.Color = GetSkullColor(prefabDiff, biomeDiff, 1);
-			uiSkull2.Color = GetSkullColor(prefabDiff, biomeDiff, 2);
-			uiSkull3.Color = GetSkullColor(prefabDiff, biomeDiff, 3);
-			uiSkull4.Color = GetSkullColor(prefabDiff, biomeDiff, 4);
-			uiSkull5.Color = GetSkullColor(prefabDiff, biomeDiff, 5);
-			uiSkull6.Color = GetSkullColor(prefabDiff, biomeDiff, 6);
-			uiSkull7.Color = GetSkullColor(prefabDiff, biomeDiff, 7);
-			uiSkull1.IsVisible = sumDiff >= 1;
-			uiSkull2.IsVisible = sumDiff >= 2;
-			uiSkull3.IsVisible = sumDiff >= 3;
-			uiSkull4.IsVisible = sumDiff >= 4;
-			uiSkull5.IsVisible = sumDiff >= 5;
-			uiSkull6.IsVisible = sumDiff >= 6;
-			uiSkull7.IsVisible = sumDiff >= 7;
-			uiSkullHalf.IsVisible = showHalf;
+			SetValues(name, prefabDiff, biomeDiff, showHalf);
 		}
 
 		public void InitMod(Mod modInstance) {
